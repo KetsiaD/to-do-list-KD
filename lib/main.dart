@@ -36,9 +36,9 @@ class _ToDoListState extends State<ToDoList> {
             ),
             actions: <Widget>[
               ElevatedButton(
-                key: const Key("OkButton"),
+                key: const Key("CancelButton"),
                 style: yesStyle,
-                child: const Text('OK'),
+                child: const Text('Cancel'),
                 onPressed: () {
                   setState(() {
                     Navigator.pop(context);
@@ -51,7 +51,7 @@ class _ToDoListState extends State<ToDoList> {
                 valueListenable: _inputController,
                 builder: (context, value, child) {
                   return ElevatedButton(
-                    key: const Key("CancelButton"),
+                    key: const Key("OkButton"),
                     style: noStyle,
                     onPressed: value.text.isNotEmpty
                         ? () {
@@ -61,7 +61,7 @@ class _ToDoListState extends State<ToDoList> {
                             });
                           }
                         : null,
-                    child: const Text('Cancel'),
+                    child: const Text('OK'),
                   );
                 },
               ),
