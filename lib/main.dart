@@ -91,7 +91,6 @@ class _ToDoListState extends State<ToDoList> {
         print("Completing");
         _itemSet.add(item);
         items.add(item);
-        nametodo.add(item.abbrev());
 
       } else {
         print("Making Undone");
@@ -113,6 +112,7 @@ class _ToDoListState extends State<ToDoList> {
       print("Adding new item");
       Item item =  Item(name: itemText);
       items.insert(0, item);
+      nametodo.add(item.abbrev());
       _inputController.clear();
     });
   }
@@ -153,6 +153,8 @@ class _ToDoListState extends State<ToDoList> {
   }
 }
 class MySearchDelegate extends SearchDelegate{
+  List<String> searchResults = nametodo;
+
   @override
   Widget? buildLeading (BuildContext context) => IconButton(
     icon: const Icon(Icons.arrow_back),
@@ -182,7 +184,13 @@ class MySearchDelegate extends SearchDelegate{
   );
   @override
   Widget buildSuggestions(BuildContext context){
-     List<String> suggestions = nametodo;
+    List<String> suggestions = searchResults.where((searchResult){
+      final result = searchResult.toLowerCase();
+      final input = query.toLowerCase();
+      return result.contains(input);
+
+    }).toList();
+
      return ListView.builder(
       itemCount: suggestions.length,
       itemBuilder: (context, index){
