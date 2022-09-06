@@ -1,7 +1,8 @@
 // Started with https://docs.flutter.dev/development/ui/widgets-intro
 import 'package:flutter/material.dart';
 import 'package:to_dont_list/to_do_items.dart';
-import 'increment.dart';
+
+List<String> nametodo = [];
 
 class ToDoList extends StatefulWidget {
   const ToDoList({super.key});
@@ -90,6 +91,8 @@ class _ToDoListState extends State<ToDoList> {
         print("Completing");
         _itemSet.add(item);
         items.add(item);
+        nametodo.add(item.abbrev());
+
       } else {
         print("Making Undone");
         _itemSet.remove(item);
@@ -119,6 +122,17 @@ class _ToDoListState extends State<ToDoList> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('To Do List'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {
+                showSearch(
+                  context: context,
+                  delegate: MySearchDelegate(),
+                );
+              },
+            ),
+          ],
         ),
         body: ListView(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -136,6 +150,56 @@ class _ToDoListState extends State<ToDoList> {
             onPressed: () {
               _displayTextInputDialog(context);
             }));
+  }
+}
+class MySearchDelegate extends SearchDelegate{
+  @override
+  Widget? buildLeading (BuildContext context) => IconButton(
+    icon: const Icon(Icons.arrow_back),
+    onPressed: ()=> close(context, null),
+  );
+  @override
+  List<Widget>?buildActions(BuildContext context) => [
+    IconButton(
+      icon: const Icon(Icons.clear),
+      onPressed: (){
+        if (query.isEmpty){
+          close(context, null);
+        }else{
+          query = '';
+        }
+      },
+
+    ),
+
+  ];
+  @override
+  Widget buildResults(BuildContext context) => Center(
+    child: Text(
+      query,
+      style: const TextStyle(fontSize: 70, fontWeight: FontWeight.w700)
+    )
+  );
+  @override
+  Widget buildSuggestions(BuildContext context){
+     List<String> suggestions = nametodo;
+     return ListView.builder(
+      itemCount: suggestions.length,
+      itemBuilder: (context, index){
+        final suggestion = suggestions[index];
+
+        return ListTile(
+          title: Text(suggestion),
+          onTap: (){
+            query = suggestion;
+
+            showResults(context); 
+          },
+
+        );
+        
+      },
+     );
   }
 }
 
