@@ -6,7 +6,7 @@ class Item {
   final String name;
 
   String abbrev() {
-    return name;
+    return name.substring(0,1);
   }
 }
 
@@ -59,10 +59,10 @@ class ToDoListItem extends StatelessWidget {
           : null,
       leading: CircleAvatar(
         backgroundColor: _getColor(context),
-        child: Text(item.name),
+        child: Text(item.abbrev()),
       ),
       title: Text(
-        item.abbrev(),
+        item.name,
         style: _getTextStyle(context),
       ),
     );

@@ -14,7 +14,7 @@ import 'package:to_dont_list/to_do_items.dart';
 void main() {
   test('Item abbreviation should be first two letters', () {
     const item = Item(name: "add more todos");
-    expect(item.abbrev(), "ad");
+    expect(item.abbrev(), "a");
   });
 
   // Yes, you really need the MaterialApp and Scaffold
@@ -51,7 +51,7 @@ void main() {
     // Use the `findsOneWidget` matcher provided by flutter_test to verify
     // that the Text widgets appear exactly once in the widget tree.
     expect(abbvFinder, findsOneWidget);
-    expect(circ.backgroundColor, Colors.black54);
+    expect(circ.backgroundColor, Colors.black);
     expect(ctext.data, "t");
   });
 
