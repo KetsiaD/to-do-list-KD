@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:to_dont_list/to_do_items.dart';
 
+
 List<String> nametodo = [];
+final _itemSet = <Item>{};
 
 class ToDoList extends StatefulWidget {
   const ToDoList({super.key});
@@ -76,7 +78,7 @@ class _ToDoListState extends State<ToDoList> {
 
   final List<Item> items = [const Item(name: "add more todos")];
 
-  final _itemSet = <Item>{};
+  
 
   void _handleListChanged(Item item, bool completed) {
     setState(() {
@@ -112,7 +114,7 @@ class _ToDoListState extends State<ToDoList> {
       print("Adding new item");
       Item item =  Item(name: itemText);
       items.insert(0, item);
-      nametodo.add(item.abbrev());
+      nametodo.add(item.name);
       _inputController.clear();
     });
   }
@@ -123,6 +125,7 @@ class _ToDoListState extends State<ToDoList> {
         appBar: AppBar(
           title: const Text('To Do List'),
           actions: [
+            const PrToDo(),
             IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
@@ -150,6 +153,7 @@ class _ToDoListState extends State<ToDoList> {
             onPressed: () {
               _displayTextInputDialog(context);
             }));
+        
   }
 }
 class MySearchDelegate extends SearchDelegate{
@@ -210,6 +214,32 @@ class MySearchDelegate extends SearchDelegate{
      );
   }
 }
+
+class PrToDo extends StatefulWidget {
+  const PrToDo({super.key});
+
+  @override
+  State createState() => _PrToDoState();
+}
+
+class _PrToDoState extends State<PrToDo>{
+  get items => null;
+
+  @override
+  Widget build(BuildContext) {
+    return IconButton(
+      icon: Icon(Icons.delete),
+        color: Colors.black,
+        tooltip: 'Clear everything',
+        iconSize: 30,
+        onPressed: (){
+        }
+      ); 
+
+  }
+
+}
+
 
 void main() {
   runApp(const MaterialApp(
