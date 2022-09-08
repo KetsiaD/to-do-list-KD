@@ -11,7 +11,22 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:to_dont_list/main.dart';
 import 'package:to_dont_list/to_do_items.dart';
 
+class MockOnPressedFunction {
+  int called = 0;
+
+  void handler() {
+    called++;
+  }
+}
+
+
 void main() {
+  late MockOnPressedFunction mockOnPressedFunction;
+  const ColorScheme colorScheme = ColorScheme.light();
+  final ThemeData theme = ThemeData.from(colorScheme: colorScheme);
+  setUp(() {
+    mockOnPressedFunction = MockOnPressedFunction();
+  });
   test('Item abbreviation should be first two letters', () {
     const item = Item(name: "add more todos");
     expect(item.abbrev(), "a");
@@ -85,5 +100,30 @@ void main() {
     expect(listItemFinder, findsNWidgets(2));
   });
 
+  
+ testWidgets('Search Icon Button can be tapped to view the search bar and other buttons', (WidgetTester tester)
+ async{
+  final addButton = find.byKey(const ValueKey("addButton"));
+  final addButton2 = find.byKey(const ValueKey("addButton2"));
+  final addText1 = find.byKey(ValueKey('addText1'));
+
+  await tester.pumpWidget(MaterialApp(home:ToDoList()));
+  await tester.tap(addButton);
+  //await tester.tap(addButton2);
+  //await tester.enterText(addText1, 'keke');
+  //await tester.tap(addText1);
+  await tester.pump();
+  await tester.pump();
+  final addButton3 = find.byKey(const Key("addButton3"));
+  //expect(addButton, findsOneWidget);
+  expect(addButton3, findsOneWidget);
+  expect(addButton2, findsOneWidget);
+  
+ });
+
+
+
+  
+  
   // One to test the tap and press actions on the items?
 }
