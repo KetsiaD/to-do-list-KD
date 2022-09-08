@@ -5,6 +5,7 @@ import 'package:to_dont_list/to_do_items.dart';
 
 List<String> nametodo = [];
 final _itemSet = <Item>{};
+final List<Item> items = [const Item(name: "add more todos")];
 
 class ToDoList extends StatefulWidget {
   const ToDoList({super.key});
@@ -76,8 +77,6 @@ class _ToDoListState extends State<ToDoList> {
 
   String valueText = "";
 
-  final List<Item> items = [const Item(name: "add more todos")];
-
   
 
   void _handleListChanged(Item item, bool completed) {
@@ -92,7 +91,7 @@ class _ToDoListState extends State<ToDoList> {
       if (!completed) {
         print("Completing");
         _itemSet.add(item);
-        items.add(item);
+        //items.add(item);
 
       } else {
         print("Making Undone");
@@ -229,16 +228,20 @@ class PrToDo extends StatefulWidget {
 }
 
 class _PrToDoState extends State<PrToDo>{
-  get items => null;
 
   @override
   Widget build(BuildContext) {
     return IconButton(
       icon: Icon(Icons.delete),
+        key: Key("DeleteB"),
         color: Colors.black,
         tooltip: 'Clear everything',
         iconSize: 30,
         onPressed: (){
+          setState(() {
+            items.clear();
+  
+          });
         }
       ); 
 

@@ -11,22 +11,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:to_dont_list/main.dart';
 import 'package:to_dont_list/to_do_items.dart';
 
-class MockOnPressedFunction {
-  int called = 0;
-
-  void handler() {
-    called++;
-  }
-}
 
 
 void main() {
-  late MockOnPressedFunction mockOnPressedFunction;
-  const ColorScheme colorScheme = ColorScheme.light();
-  final ThemeData theme = ThemeData.from(colorScheme: colorScheme);
-  setUp(() {
-    mockOnPressedFunction = MockOnPressedFunction();
-  });
   test('Item abbreviation should be first two letters', () {
     const item = Item(name: "add more todos");
     expect(item.abbrev(), "a");
@@ -121,9 +108,17 @@ void main() {
   
  });
 
+testWidgets('Test the presence of the delete Icon button', (WidgetTester tester)
+ async{
+  final DeleteB = find.byKey(const ValueKey("DeleteB"));
+  await tester.pumpWidget(MaterialApp(home:ToDoList()));
+  await tester.tap(DeleteB);
+  expect(DeleteB, findsOneWidget);
+
+ });
 
 
-  
-  
-  // One to test the tap and press actions on the items?
+
 }
+
+
