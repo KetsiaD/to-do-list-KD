@@ -16,4 +16,4 @@ Anyone, who wants to have their daily activities organised and writtedn down in 
 <img width="307" alt="Screen Shot 2022-09-08 at 4 40 10 PM" src="https://user-images.githubusercontent.com/104210647/189231186-f3cb1fed-e4c4-4ed6-81d0-084221091890.png">
 <img width="307" alt="Screen Shot 2022-09-08 at 4 40 21 PM" src="https://user-images.githubusercontent.c<img width="307" alt="Screen Shot 2022-09-08 at 4 40 32 PM" src="https://user-images.githubusercontent.com/104210647/189231224-2acfad91-1286-4f83-842f-2b5b1ba10aa7.png">
 om/104210647/189231210-dfb93c95-20bc-45a4-9040-bb63c174543e.png">
-![Simulator Screen Shot - iPhone SE (3rd generation) - 2022-09-08 at 16 41 19](https://user-images.githubusercontent.com/104210647/189231235-d079c1eb-1aa6-498e-b5d0-7cf1eaa6da83.png)
+<img width="307" alt="Screen Shot 2022-09-08 at 4 51 29 PM" src="https://user-images.githubusercontent.com/104210647/189232408-b3ee61fd-657c-40ee-8e66-46b6dc0a4812.png">
