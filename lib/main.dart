@@ -1,11 +1,14 @@
 // Started with https://docs.flutter.dev/development/ui/widgets-intro
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:to_dont_list/to_do_items.dart';
-
 
 List<String> nametodo = [];
 final _itemSet = <Item>{};
 final List<Item> items = [const Item(name: "add more todos")];
+int counter = 0;
+bool good = true;
 
 class ToDoList extends StatefulWidget {
   const ToDoList({super.key});
@@ -61,7 +64,8 @@ class _ToDoListState extends State<ToDoList> {
                     onPressed: value.text.isNotEmpty
                         ? () {
                             setState(() {
-                              _handleNewItem(valueText); 
+                              _handleNewItem(valueText);
+                              counter += 1;
                               Navigator.pop(context);
                             });
                           }
@@ -77,8 +81,6 @@ class _ToDoListState extends State<ToDoList> {
 
   String valueText = "";
 
-  
-
   void _handleListChanged(Item item, bool completed) {
     setState(() {
       // When a user changes what's in the list, you need
@@ -91,12 +93,17 @@ class _ToDoListState extends State<ToDoList> {
       if (!completed) {
         print("Completing");
         _itemSet.add(item);
-        //items.add(item);
-
+        items.add(item);
+        if (counter == 0) {
+          counter = 0;
+        } else {
+          counter -= 1;
+        }
       } else {
         print("Making Undone");
         _itemSet.remove(item);
         items.insert(0, item);
+        counter += 1;
       }
     });
   }
@@ -111,7 +118,7 @@ class _ToDoListState extends State<ToDoList> {
   void _handleNewItem(String itemText) {
     setState(() {
       print("Adding new item");
-      Item item =  Item(name: itemText);
+      Item item = Item(name: itemText);
       items.insert(0, item);
       nametodo.add(item.name);
       _inputController.clear();
@@ -155,68 +162,61 @@ class _ToDoListState extends State<ToDoList> {
             onPressed: () {
               _displayTextInputDialog(context);
             }));
-        
   }
 }
-class MySearchDelegate extends SearchDelegate{
+
+class MySearchDelegate extends SearchDelegate {
   List<String> searchResults = nametodo;
 
   @override
-  Widget? buildLeading (BuildContext context) => IconButton(
-    key: const Key('addButton3'),
-    icon: const Icon(Icons.arrow_back),
-    onPressed: ()=> close(context, null),
-  );
+  Widget? buildLeading(BuildContext context) => IconButton(
+        key: const Key('addButton3'),
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () => close(context, null),
+      );
   @override
-  List<Widget>?buildActions(BuildContext context) => [
-    IconButton(
-      key: const Key('addButton2'),
-      icon: const Icon(Icons.clear),
-      onPressed: (){
-        if (query.isEmpty){
-          close(context, null);
-        }else{
-          query = '';
-        }
-      },
-
-    ),
-
-  ];
+  List<Widget>? buildActions(BuildContext context) => [
+        IconButton(
+          key: const Key('addButton2'),
+          icon: const Icon(Icons.clear),
+          onPressed: () {
+            if (query.isEmpty) {
+              close(context, null);
+            } else {
+              query = '';
+            }
+          },
+        ),
+      ];
   @override
   Widget buildResults(BuildContext context) => Center(
-    child: Text(
-      key: Key('addText1'),
-      query,
-      style: const TextStyle(fontSize: 70, fontWeight: FontWeight.w700)
-    )
-  );
+      child: Text(
+          key: Key('addText1'),
+          query,
+          style: const TextStyle(fontSize: 70, fontWeight: FontWeight.w700)));
   @override
-  Widget buildSuggestions(BuildContext context){
-    List<String> suggestions = searchResults.where((searchResult){
+  Widget buildSuggestions(BuildContext context) {
+    List<String> suggestions = searchResults.where((searchResult) {
       final result = searchResult.toLowerCase();
       final input = query.toLowerCase();
       return result.contains(input);
-
     }).toList();
 
-     return ListView.builder(
+    return ListView.builder(
       itemCount: suggestions.length,
-      itemBuilder: (context, index){
+      itemBuilder: (context, index) {
         final suggestion = suggestions[index];
 
         return ListTile(
           title: Text(suggestion),
-          onTap: (){
+          onTap: () {
             query = suggestion;
 
-            showResults(context); 
+            showResults(context);
           },
-
         );
-        
       },
-     );
+    );
   }
 }
 
@@ -227,28 +227,24 @@ class PrToDo extends StatefulWidget {
   State createState() => _PrToDoState();
 }
 
-class _PrToDoState extends State<PrToDo>{
-
+class _PrToDoState extends State<PrToDo> {
   @override
-  Widget build(BuildContext) {
-    return IconButton(
-      icon: Icon(Icons.delete),
-        key: Key("DeleteB"),
-        color: Colors.black,
-        tooltip: 'Clear everything',
-        iconSize: 30,
-        onPressed: (){
-          setState(() {
-            items.clear();
-  
-          });
-        }
-      ); 
-
+  Widget build(BuildContext context) {
+    return Tooltip(
+        message: 'Red: Too much, Green: Good',
+        child: TextButton(
+          style: TextButton.styleFrom(
+            backgroundColor: (counter > 4) ? Colors.red : Colors.green,
+            padding: const EdgeInsets.all(16.0),
+            textStyle: const TextStyle(fontSize: 20),
+          ),
+          child: const Text('Status'),
+          onPressed: () {
+            setState(() {});
+          },
+        ));
   }
-
 }
-
 
 void main() {
   runApp(const MaterialApp(
