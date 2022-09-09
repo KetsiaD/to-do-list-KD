@@ -11,8 +11,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:to_dont_list/main.dart';
 import 'package:to_dont_list/to_do_items.dart';
 
-
-
 void main() {
   test('Item abbreviation should be first two letters', () {
     const item = Item(name: "add more todos");
@@ -87,38 +85,34 @@ void main() {
     expect(listItemFinder, findsNWidgets(2));
   });
 
-  
- testWidgets('Search Icon Button can be tapped to view the search bar and other buttons', (WidgetTester tester)
- async{
-  final addButton = find.byKey(const ValueKey("addButton"));
-  final addButton2 = find.byKey(const ValueKey("addButton2"));
-  final addText1 = find.byKey(ValueKey('addText1'));
+  testWidgets(
+      'Search Icon Button can be tapped to view the search bar and other buttons',
+      (WidgetTester tester) async {
+    final addButton = find.byKey(const ValueKey("addButton"));
+    final addButton2 = find.byKey(const ValueKey("addButton2"));
+    final addText1 = find.byKey(ValueKey('addText1'));
 
-  await tester.pumpWidget(MaterialApp(home:ToDoList()));
-  await tester.tap(addButton);
-  //await tester.tap(addButton2);
-  //await tester.enterText(addText1, 'keke');
-  //await tester.tap(addText1);
-  await tester.pump();
-  await tester.pump();
-  final addButton3 = find.byKey(const Key("addButton3"));
-  //expect(addButton, findsOneWidget);
-  expect(addButton3, findsOneWidget);
-  expect(addButton2, findsOneWidget);
-  
- });
+    await tester.pumpWidget(MaterialApp(home: ToDoList()));
+    await tester.tap(addButton);
+    await tester.pump();
+    await tester.pump();
+    final addButton3 = find.byKey(const Key("addButton3"));
+    expect(addButton3, findsOneWidget);
+    expect(addButton2, findsOneWidget);
+  });
 
-testWidgets('Test the presence of the delete Icon button', (WidgetTester tester)
- async{
-  final DeleteB = find.byKey(const ValueKey("DeleteB"));
-  await tester.pumpWidget(MaterialApp(home:ToDoList()));
-  await tester.tap(DeleteB);
-  expect(DeleteB, findsOneWidget);
-
- });
-
-
-
+  testWidgets('Test the presence of TextBox Widget',
+      (WidgetTester tester) async {
+    final TextButton1 = find.byKey(const ValueKey("TextButton1"));
+    await tester.pumpWidget(MaterialApp(home: ToDoList()));
+    await tester.tap(TextButton1);
+    expect(TextButton1, findsOneWidget);
+  });
+  testWidgets('Test the presence of ToolTip Widget',
+      (WidgetTester tester) async {
+    final toolTip1 = find.byKey(const ValueKey("toolTip1"));
+    await tester.pumpWidget(MaterialApp(home: ToDoList()));
+    await tester.tap(toolTip1);
+    expect(toolTip1, findsOneWidget);
+  });
 }
-
-

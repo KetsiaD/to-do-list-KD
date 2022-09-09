@@ -231,8 +231,10 @@ class _PrToDoState extends State<PrToDo> {
   @override
   Widget build(BuildContext context) {
     return Tooltip(
-        message: 'Red: Too much, Green: Good',
+        key: const Key('toolTip1'),
+        message: 'Red: Too much uncompleted tasks, Green: Good',
         child: TextButton(
+          key: const Key('TextButton1'),
           style: TextButton.styleFrom(
             backgroundColor: (counter > 4) ? Colors.red : Colors.green,
             padding: const EdgeInsets.all(16.0),
