@@ -26,7 +26,7 @@ class _ToDoListState extends State<ToDoList> {
       textStyle: const TextStyle(fontSize: 20), primary: Colors.green);
 
   Future<void> _displayTextInputDialog(BuildContext context) async {
-    print("Loading Dialog");
+    //print("Loading Dialog");
     return showDialog(
         context: context,
         builder: (context) {
@@ -67,6 +67,7 @@ class _ToDoListState extends State<ToDoList> {
                               _handleNewItem(valueText);
                               counter += 1;
                               Navigator.pop(context);
+                              //if (counter >= 5) {}
                             });
                           }
                         : null,
@@ -131,7 +132,7 @@ class _ToDoListState extends State<ToDoList> {
         appBar: AppBar(
           title: const Text('To Do List'),
           actions: [
-            const PrToDo(),
+            PrToDo(counter: counter),
             IconButton(
               key: const Key('addButton'),
               icon: const Icon(Icons.search),
@@ -220,14 +221,20 @@ class MySearchDelegate extends SearchDelegate {
   }
 }
 
-class PrToDo extends StatefulWidget {
-  const PrToDo({super.key});
+class PrToDo extends StatelessWidget {
+  const PrToDo({super.key, required this.counter});
 
-  @override
-  State createState() => _PrToDoState();
-}
+  final int counter;
 
-class _PrToDoState extends State<PrToDo> {
+  Color colorChoise() {
+    //setState(() {});
+    if (counter > 3) {
+      return Colors.red;
+    } else {
+      return Colors.green;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Tooltip(
@@ -236,14 +243,12 @@ class _PrToDoState extends State<PrToDo> {
         child: TextButton(
           key: const Key('TextButton1'),
           style: TextButton.styleFrom(
-            backgroundColor: (counter > 4) ? Colors.red : Colors.green,
+            backgroundColor: colorChoise(),
             padding: const EdgeInsets.all(16.0),
             textStyle: const TextStyle(fontSize: 20),
           ),
           child: const Text('Status'),
-          onPressed: () {
-            setState(() {});
-          },
+          onPressed: () {},
         ));
   }
 }
