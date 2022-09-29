@@ -228,7 +228,7 @@ class PrToDo extends StatelessWidget {
 
   Color colorChoise() {
     //setState(() {});
-    if (counter > 3) {
+    if (counter > 4) {
       return Colors.red;
     } else {
       return Colors.green;
